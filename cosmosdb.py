@@ -1,5 +1,6 @@
 from azure.cosmos import CosmosClient
 import uuid
+import json
 
 url = "https://sajboxukscosmos001.documents.azure.com:443/"
 key = "FdYa0SfRB7HZZiB0W5JViY6XYyF6ARQmtdCazq3KXsZBuD0rOPNPOYXBOqEsxyKQza2heDQgIJF8gwUFNGjxPA=="
@@ -12,6 +13,13 @@ def containerconn(database_name, container_name):
     container = database.get_container_client(container_name)
 
     return container
+
+def select_notif_group(group_id):
+    query='SELECT c.email FROM notif_groups f join c in f.email_addresses WHERE f.id = "%s"' % (group_id)
+    container = containerconn("monitor_pydb", "notif_groups")
+    email_addresses = (list(container.query_items(query=query, enable_cross_partition_query=True)))
+    email_addresses = json.dumps(email_addresses, indent=True)
+    return email_addresses
 
 def mon_sites_upsert(url, notif_group, exp_status_code):
     mon_sites_container = containerconn("monitor_pydb", "monitor_sites")
