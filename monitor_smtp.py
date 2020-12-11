@@ -15,7 +15,7 @@ def monitor_sendmail(group_id, url, expected_status_code, status_code):
         time_now = now.strftime("%Y-%m-%d %H:%M:%S")
         receiver = receiver["email"]
 
-        msg_str = """<div style="font-family: inherit">The following site is reporting and unexpected HTTP status code: %s</div>
+        msg_str = """<div style="font-family: inherit">The following site is reporting an unexpected HTTP status code: %s</div>
                     <div style="font-family: inherit">Expected status code: %s</div>
                     <div style="font-family: inherit">Reported status code: %s</div>
                     <div style="font-family: inherit">Timestamp: %s</div>""" % (url, expected_status_code, status_code, time_now)
