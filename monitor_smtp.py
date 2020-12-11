@@ -30,7 +30,7 @@ def monitor_sendmail(group_id, url, expected_status_code, status_code):
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)
-            output_str = "Successfully sent monitoring email alert to %s status code: %s" % (receiver, response.status_code)
+            output_str = "%s: Successfully sent monitoring alert to %s for site: %s with site status code: %s. Email status code: %s" % (time_now, receiver, url, status_code, response.status_code)
             print(output_str)
         except Exception as e:
             print(e)
