@@ -1,9 +1,10 @@
 from azure.cosmos import CosmosClient
+import os
 import uuid
 import json
 
 url = "https://sajboxukscosmos001.documents.azure.com:443/"
-key = "FdYa0SfRB7HZZiB0W5JViY6XYyF6ARQmtdCazq3KXsZBuD0rOPNPOYXBOqEsxyKQza2heDQgIJF8gwUFNGjxPA=="
+key = os.environ.get('AZURE_API_KEY')
 
 client = CosmosClient(url, credential=key)
 
