@@ -21,6 +21,13 @@ def select_notif_group(group_id):
     email_addresses = json.dumps(email_addresses, indent=True)
     return email_addresses
 
+def select_monitor_sites():
+    query='SELECT monitor_sites.url,monitor_sites.notif_group,monitor_sites.status_code FROM monitor_sites'
+    container = containerconn("monitor_pydb", "monitor_sites")
+    monitor_sites = (list(container.query_items(query=query, enable_cross_partition_query=True)))
+    monitor_sites = json.dumps(monitor_sites, indent=True)
+    return monitor_sites
+
 def mon_sites_upsert(url, notif_group, exp_status_code):
     mon_sites_container = containerconn("monitor_pydb", "monitor_sites")
     mon_sites_id = uuid.uuid1()
@@ -35,10 +42,3 @@ def mon_sites_upsert(url, notif_group, exp_status_code):
 
     output = "Added monitoring for URL: %s to DB for notification group: %s with expected status code: %s" % (url, notif_group, exp_status_code)
     print(output)
-
-
-
-
-
-
-#mon_sites_upsert('https://theboiz.gg', "d75ee3ee-3b2e-11eb-8aea-0022483f4bcf", "200")
