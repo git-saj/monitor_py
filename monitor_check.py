@@ -17,7 +17,7 @@ def request_sites():
 
         site_status_code = request.status_code
 
-        if site_status_code != site_expected_status:
+        if int(site_status_code) != int(site_expected_status):
             monitor_smtp.monitor_sendmail(site_group, site_url, site_expected_status, site_status_code)
 
 if __name__ == "__main__":
