@@ -33,6 +33,7 @@ def monitor_sendmail(group_id, url, expected_status_code, status_code):
             output_str = "%s: Successfully sent monitoring alert to %s for site: %s with site status code: %s. Email status code: %s" % (time_now, receiver, url, status_code, response.status_code)
             print(output_str)
         except Exception as e:
-            print(e)
+            mail_error = "Mail Error: %s" % (e)
+            print(mail_error)
 
         
